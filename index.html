@@ -1,0 +1,43 @@
+<html>
+  <head>
+    <meta charset="utf-8"></meta>
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0,shrink-to-fit=no" name="viewport"/>
+    <title>小助手</title>
+    <style>
+      #mysubway {
+        width: 100vw;
+        height: 100vh;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="mysubway"></div>
+    <script src="https://webapi.amap.com/subway?v=1.0&key=f15491673f12eb9d56ea9ab372026f60&callback=cbk"></script>
+    <script>
+      function getUrlAllParams(url) {
+        var url = url ? url : window.location.href;
+        var _pa = url.substring(url.indexOf("?") + 1),
+          _arrS = _pa.split("&"),
+          _rs = {};
+        for (var i = 0, _len = _arrS.length; i < _len; i++) {
+          var pos = _arrS[i].indexOf("=");
+          if (pos == -1) {
+            continue;
+          }
+          var name = _arrS[i].substring(0, pos),
+            value = window.decodeURIComponent(_arrS[i].substring(pos + 1));
+          _rs[name] = value;
+        }
+        return _rs;
+      }
+      const adcode = getUrlAllParams(location.href).adcode
+
+      window.cbk = function(){
+        var mysubway = subway("mysubway", {
+          easy: 1,
+          adcode: adcode || '4401'
+        });
+      };
+    </script>
+  </body>
+</html>
